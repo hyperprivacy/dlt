@@ -1,0 +1,27 @@
+{
+    "host":"localhost",
+    "port":"4000",
+    "jwt_expiretime": "36000",
+    "channelName":"eventchannel",
+    "CC_SRC_PATH":"../network",
+    "eventWaitTime":"30000",
+    "admins": {
+       "Regulator": {
+          "username": "supervisor_admin",
+          "secret": "supervisor2019"
+       },
+       "Provider": {
+         "username": "provider_admin",
+         "secret": "provider2019"
+      },
+      "Iot": {
+         "username": "iot_admin",
+         "secret": "iot2019"
+      },
+      "EndUser": {
+         "username": "enduser_admin",
+         "secret": "enduser2019"
+      }
+    }
+ }
+ 
