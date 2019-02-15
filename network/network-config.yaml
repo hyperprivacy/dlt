@@ -4,7 +4,7 @@
 # blockchain network that are necessary for the applications to interact with it. These are all
 # knowledge that must be acquired from out-of-band sources. This file provides such a source.
 #
-name: "Iot"
+name: "Hyperprivacy network"
 
 #
 # Any properties with an "x-" prefix will be treated as application-specific, exactly like how naming
@@ -44,11 +44,11 @@ channels:
     # operational decisions to share loads from applications among the orderers.  The values must
     # be "names" of orgs defined under "organizations/peers"
     orderers:
-      - orderer.hyperprivacy.network
+      - orderer.hyperprivacy.network.com
 
     # Required. list of peers from participating orgs
     peers:
-      peer0.regulator.iot-blockchain.com:
+      peer0.supervisor.hyperprivacy.network.com:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
@@ -68,19 +68,19 @@ channels:
         # Default: true
         eventSource: true
 
-      peer0.provider.iot-blockchain.com:
+      peer0.provider.hyperprivacy.network.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
 
-      peer0.iot.iot-blockchain.com:
+      peer0.iot.hyperprivacy.network.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
 
-      peer0.enduser.iot-blockchain.com:
+      peer0.enduser.hyperprivacy.network.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -92,16 +92,17 @@ channels:
     chaincodes:
       # the format follows the "cannonical name" of chaincodes by fabric code
       - sensors:v0
+      - events:v0
 
 #
 # list of participating organizations in this network
 #
 organizations:
-  Regulator:
-    mspid: RegulatorMSP
+  Supervisor:
+    mspid: SupervisorMSP
 
     peers:
-      - peer0.regulator.iot-blockchain.com
+      - peer0.supervisor.hyperprivacy.network.com
 
     # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
     # network. Typically certificates provisioning is done in a separate process outside of the
@@ -109,7 +110,7 @@ organizations:
     # dynamic certificate management (enroll, revoke, re-enroll). The following section is only for
     # Fabric-CA servers.
     certificateAuthorities:
-      - ca-regulator
+      - ca.supervisor.hyperprivacy.network
 
     # [Optional]. If the application is going to make requests that are reserved to organization
     # administrators, including creating/updating channels, installing/instantiating chaincodes, it
@@ -119,9 +120,9 @@ organizations:
     # this way. The SDK should allow applications to set the org admin identity via APIs, and only use
     # this route as an alternative when it exists.
     adminPrivateKey:
-      path: network/channel/crypto-config/peerOrganizations/regulator.iot-blockchain.com/users/Admin@regulator.iot-blockchain.com/msp/keystore/ac23fc523003296436b829acd964bea8b8dff065053e285e6ca31adeeb3a0215_sk
+      path: network/channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/users/Admin@supervisor.hyperprivacy.network.com/msp/keystore/13aeac1a693e796548751d72f47f8119e5a550328a0a1ae3cbd0d62aea67df59_sk
     signedCert:
-      path: network/channel/crypto-config/peerOrganizations/regulator.iot-blockchain.com/users/Admin@regulator.iot-blockchain.com/msp/signcerts/Admin@regulator.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/users/Admin@supervisor.hyperprivacy.network.com/msp/signcerts/Admin@supervisor.hyperprivacy.network.com-cert.pem
 
   # the profile will contain public information about organizations other than the one it belongs to.
   # These are necessary information to make transaction lifecycles work, including MSP IDs and
@@ -131,35 +132,35 @@ organizations:
   Provider:
     mspid: ProviderMSP
     peers:
-      - peer0.provider.iot-blockchain.com
+      - peer0.provider.hyperprivacy.network.com
     certificateAuthorities:
-      - ca-provider
+      - ca.provider.hyperprivacy.network
     adminPrivateKey:
-      path: network/channel/crypto-config/peerOrganizations/provider.iot-blockchain.com/users/Admin@provider.iot-blockchain.com/msp/keystore/09a6691580a54161b0c0278ac24747490a3e024792756fc13524ac962d88a4ce_sk
+      path: network/channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/users/Admin@provider.hyperprivacy.network.com/msp/keystore/361e57c852460086dcc151ef7b2974fc3c03d32ab3216985dc65e898a5ade0ea_sk
     signedCert:
-      path: network/channel/crypto-config/peerOrganizations/provider.iot-blockchain.com/users/Admin@provider.iot-blockchain.com/msp/signcerts/Admin@provider.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/users/Admin@provider.hyperprivacy.network.com/msp/signcerts/Admin@provider.hyperprivacy.network.com-cert.pem
 
   Iot:
     mspid: IotMSP
     peers:
-      - peer0.iot.iot-blockchain.com
+      - peer0.iot.hyperprivacy.network.com
     certificateAuthorities:
-      - ca-iot
+      - ca.iot.hyperprivacy.network
     adminPrivateKey:
-      path: network/channel/crypto-config/peerOrganizations/iot.iot-blockchain.com/users/Admin@iot.iot-blockchain.com/msp/keystore/0ba4980e043e4e0f20c13fa7164d06a332d1a7b44979e9cf82af87c320f009bf_sk
+      path: network/channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/users/Admin@iot.hyperprivacy.network.com/msp/keystore/89f316539d47d407b2cce854702f2e9a32dd0cfc3b312e1cc9edca15a864c04a_sk
     signedCert:
-      path: network/channel/crypto-config/peerOrganizations/iot.iot-blockchain.com/users/Admin@iot.iot-blockchain.com/msp/signcerts/Admin@iot.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/users/Admin@iot.hyperprivacy.network.com/msp/signcerts/Admin@iot.hyperprivacy.network.com-cert.pem
 
   EndUser:
     mspid: EndUserMSP
     peers:
-      - peer0.enduser.iot-blockchain.com
+      - peer0.enduser.hyperprivacy.network.com
     certificateAuthorities:
-      - ca-enduser
+      - ca.enduser.hyperprivacy.network
     adminPrivateKey:
-      path: network/channel/crypto-config/peerOrganizations/enduser.iot-blockchain.com/users/Admin@enduser.iot-blockchain.com/msp/keystore/820ced519d1cb342d65ba2a6a6b4238d35d75c1a137ad6e76b777cc14c35c25c_sk
+      path: network/channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/users/Admin@enduser.hyperprivacy.network.com/msp/keystore/262ca77db39214a28fca30ae7d259f48b44a2e09be061eb7808254dd2c0039ca_sk
     signedCert:
-      path: network/channel/crypto-config/peerOrganizations/enduser.iot-blockchain.com/users/Admin@enduser.iot-blockchain.com/msp/signcerts/Admin@enduser.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/users/Admin@enduser.hyperprivacy.network.com/msp/signcerts/Admin@enduser.hyperprivacy.network.com-cert.pem
 
 #
 # List of orderers to send transaction and channel create/update requests to. For the time
@@ -167,51 +168,51 @@ organizations:
 # SDK is implementation specific. Consult each SDK's documentation for its handling of orderers.
 #
 orderers:
-  infodomorderer.iot-blockchain.com:
+  orderer.hyperprivacy.network.com:
     url: grpc://localhost:7050
 
     # these are standard properties defined by the gRPC library
     # they will be passed in as-is to gRPC client constructor
     grpcOptions:
-      ssl-target-name-override: infodomorderer.iot-blockchain.com
+      ssl-target-name-override: orderer.hyperprivacy.network.com
 
     tlsCACerts:
-      path: network/channel/crypto-config/ordererOrganizations/infodomorderer.iot-blockchain.com/orderers/infodomorderer.infodomorderer.iot-blockchain.com/tls/ca.crt
+      path: network/channel/crypto-config/ordererOrganizations/orderer.hyperprivacy.network.com/orderers/orderer.orderer.hyperprivacy.network.com/tls/ca.crt
 
 #
 # List of peers to send various requests to, including endorsement, query
 # and event listener registration.
 #
 peers:
-  peer0.regulator.iot-blockchain.com:
+  peer0.supervisor.hyperprivacy.network.com:
     # this URL is used to send endorsement and query requests
     url: grpc://localhost:7051
 
     grpcOptions:
-      ssl-target-name-override: peer0.regulator.iot-blockchain.com
+      ssl-target-name-override: peer0.regulator.hyperprivacy.network.com
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/regulator.iot-blockchain.com/peers/peer0.regulator.iot-blockchain.com/tls/ca.crt
+      path: network/channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/peers/peer0.supervisor.hyperprivacy.network.com/tls/ca.crt
 
-  peer0.provider.iot-blockchain.com:
+  peer0.provider.hyperprivacy.network.com:
     url: grpc://localhost:8051
     grpcOptions:
-      ssl-target-name-override: peer0.provider.iot-blockchain.com
+      ssl-target-name-override: peer0.provider.hyperprivacy.network.com
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/provider.iot-blockchain.com/peers/peer0.provider.iot-blockchain.com/tls/ca.crt
+      path: network/channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/peers/peer0.provider.hyperprivacy.network.com/tls/ca.crt
 
-  peer0.iot.iot-blockchain.com:
+  peer0.iot.hyperprivacy.network.com:
     url: grpc://localhost:9051
     grpcOptions:
-      ssl-target-name-override: peer0.iot.iot-blockchain.com
+      ssl-target-name-override: peer0.iot.hyperprivacy.network.com
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/iot.iot-blockchain.com/peers/peer0.iot.iot-blockchain.com/tls/ca.crt
+      path: network/channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/peers/peer0.iot.hyperprivacy.network.com/tls/ca.crt
 
-  peer0.enduser.iot-blockchain.com:
+  peer0.enduser.hyperprivacy.network.com:
     url: grpc://localhost:10051
     grpcOptions:
-      ssl-target-name-override: peer0.enduser.iot-blockchain.com
+      ssl-target-name-override: peer0.enduser.hyperprivacy.network.com
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/enduser.iot-blockchain.com/peers/peer0.enduser.iot-blockchain.com/tls/ca.crt
+      path: network/channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/peers/peer0.enduser.hyperprivacy.network.com/tls/ca.crt
 
 
 
@@ -221,55 +222,55 @@ peers:
 # Certificate Authority instead of Fabric-CA, in which case this section would not be specified.
 #
 certificateAuthorities:
-  ca-regulator:
+  ca.supervisor.hyperprivacy.network:
     url: http://localhost:7054
     # the properties specified under this object are passed to the 'http' client verbatim when
     # making the request to the Fabric-CA server
     httpOptions:
       verify: false
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/regulator.iot-blockchain.com/ca/ca.regulator.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/ca/ca.supervisor.hyperprivacy.network.com-cert.pem
 
     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
     # needed to enroll and invoke new users.
     registrar:
-      - enrollId: regulator_admin
-        enrollSecret: regulator2019
+      - enrollId: supervisor_admin
+        enrollSecret: supervisor2019
     # [Optional] The optional name of the CA.
-    caName: ca-regulator
+    caName: ca.enduser.hyperprivacy.network
 
-  ca-provider:
+  ca.provider.hyperprivacy.network:
     url: http://localhost:8054
     httpOptions:
       verify: false
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/provider.iot-blockchain.com/ca/ca.provider.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/ca/ca.provider.hyperprivacy.network.com-cert.pem
     registrar:
       - enrollId: provider_admin
         enrollSecret: provider2019
     # [Optional] The optional name of the CA.
-    caName: ca-provider
+    caName: ca.provider.hyperprivacy.network
 
-  ca-iot:
+  ca.iot.hyperprivacy.network:
     url: http://localhost:9054
     httpOptions:
       verify: false
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/iot.iot-blockchain.com/ca/ca.iot.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/ca/ca.iot.hyperprivacy.network.com-cert.pem
     registrar:
       - enrollId: iot_admin
         enrollSecret: iot2019
     # [Optional] The optional name of the CA.
-    caName: ca-iot
+    caName: ca.iot.hyperprivacy.network
 
-  ca-enduser:
+  ca.enduser.hyperprivacy.network:
     url: http://localhost:10054
     httpOptions:
       verify: false
     tlsCACerts:
-      path: network/channel/crypto-config/peerOrganizations/enduser.iot-blockchain.com/ca/ca.enduser.iot-blockchain.com-cert.pem
+      path: network/channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/ca/ca.enduser.hyperprivacy.network.com-cert.pem
     registrar:
       - enrollId: enduser_admin
         enrollSecret: enduser2019
     # [Optional] The optional name of the CA.
-    caName: ca-enduser
+    caName: ca.enduser.hyperprivacy.network
