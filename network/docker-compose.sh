@@ -29,6 +29,10 @@ sleep ${FABRIC_START_TIMEOUT}
 # Create the channel
 cd ..
 
+node operational-admin.js
+
+sleep 5
+
 node operational-create-channel.js
 
 sleep 5
