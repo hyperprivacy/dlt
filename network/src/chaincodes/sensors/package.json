@@ -1,0 +1,21 @@
+{
+  "name": "sensors",
+  "version": "1.0.0",
+  "description": "chaincode for sensors hyperledger fabric",
+  "engines": {
+    "node": ">=8.4.0",
+    "npm": ">=5.3.0"
+  },
+  "scripts": {
+    "start": "node sensors.js"
+  },
+  "engine-strict": true,
+  "author": "Beyondi",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "circular-json": "^0.5.9",
+    "fabric-shim": "~1.3.0",
+    "file-system": "^2.2.2",
+    "uuid": "~3.3.2"
+  }
+}
