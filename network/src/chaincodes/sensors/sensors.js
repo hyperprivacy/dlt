@@ -46,11 +46,11 @@ let Chaincode = class {
   async addSensor(stub, args, thisClass) {
 
     // define args
-    let sensorId = uuidV1();
-    let mac = args[0];
-    let type = args[1];
-    let name = args[2];
-    let description = args[3];
+    let sensorId = args[0];
+    let mac = args[1];
+    let type = args[2];
+    let name = args[3];
+    let description = args[4];
 
 
     // check if sensor already exist in state
