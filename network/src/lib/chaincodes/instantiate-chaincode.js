@@ -14,7 +14,8 @@ var instantiateChaincode = async function(
   orgName,
   channelName,
   username,
-  collectionsConfigPath
+  collectionsConfigPath,
+  transient
 ) {
   logger.debug(
     "***** Instantiate chaincode on channel " + channelName + " *******"

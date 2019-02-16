@@ -3,7 +3,7 @@ var util = require('util');
 var helper = require('../helper');
 var logger = helper.getLogger('invoke-chaincode');
 
-var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn, args, orgName, username) {
+var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn, args, orgName, username, transient = null) {
 	
 	logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
 	var error_message = null;
@@ -30,7 +30,12 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn,
 			args: args,
 			chainId: channelName,
 			txId: tx_id
-        };
+		};
+		
+		if (transient) {
+			let buff = new Buffer(JSON.stringify(transient));
+			request.transientMap = {"data": buff.toString('base64')};
+		  }
 
 		let results = await channel.sendTransactionProposal(request, 60000);
 
