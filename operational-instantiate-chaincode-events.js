@@ -8,7 +8,7 @@ var instantiateChaincode = require('./network/src/lib/chaincodes/instantiate-cha
 
 var collectionPath = path.join(__dirname, 'network/src/chaincodes/events/collection_config.json');
 
-instantiateChaincode.instantiateChaincode(['peer0.supervisor.hyperprivacy.network.com'],"events",'node','v0',['init'],[''],'Supervisor','eventchannel','supervisor_admin', collectionPath)
+instantiateChaincode.instantiateChaincode(['peer0.supervisor.hyperprivacy.network.com'],"events",'node','v1',['init'],[''],'Supervisor','eventchannel','supervisor_admin', collectionPath)
 .then((res) => {
     console.log(res);
 });

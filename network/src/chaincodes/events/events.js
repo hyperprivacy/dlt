@@ -4,18 +4,17 @@
 # SPDX-License-Identifier: Apache-2.0
 */
 
-'use strict';
-const shim = require('fabric-shim');
+"use strict";
+const shim = require("fabric-shim");
 const clientIdentity = shim.ClientIdentity;
-const util = require('util');
-const uuidV1 = require('uuid/v1');
+const util = require("util");
+const uuidV1 = require("uuid/v1");
 
 let Chaincode = class {
-
   // The Init method is called when the Smart Contract 'Chat' is instantiated by the blockchain network
   // Best practice is to have any Ledger initialization in separate function -- see initLedger()
   async Init(stub) {
-    console.info('=========== Instantiated Sesors chaincode ===========');
+    console.info("=========== Instantiated Sesors chaincode ===========");
 
     return shim.success();
   }
@@ -29,8 +28,8 @@ let Chaincode = class {
 
     let method = this[ret.fcn];
     if (!method) {
-      console.error('no function of name:' + ret.fcn + ' found');
-      throw new Error('Received unknown function ' + ret.fcn + ' invocation');
+      console.error("no function of name:" + ret.fcn + " found");
+      throw new Error("Received unknown function " + ret.fcn + " invocation");
     }
     try {
       let payload = await method(stub, ret.params, this);
@@ -41,32 +40,22 @@ let Chaincode = class {
     }
   }
 
-  async createEvent(stub,args,thisClass) {
+  // create shared private conversation collection org1
+  async createEvent(stub, args) {
 
-    
-    // define args
-    let eventId = uuidV1();
-    let eventType = args[0];
-    let eventTime = args[1];
-    let sensorId = args[2];
+    let transient = stub.getTransient(),
+      buffer = new Buffer(transient.map.data.value.toArrayBuffer());
 
-    let sensorState = await stub.getState(sensorId);
-
-    let eventState = await stub.getState(eventId);
-    if(eventState.toString()) {
-      throw new Error("This Event alredy exist " + eventId);
-    }
-    // init object
-    let event = {};
-
-    event.docType = "event";
-    event.eventId= eventId;
-    event.eventType = eventType;
-    event.eventTime = eventTime;
-    event.sensorId = sensorId;
-
-    await stub.putState(eventId,Buffer.from(JSON.stringify(event)));
-
+    await stub.putPrivateData("defaultEvent", args[0], buffer);
   }
-}
-  shim.start(new Chaincode());
+
+    // create shared private conversation collection org1 
+    async createCriticalEvent(stub, args) {
+      let transient = stub.getTransient(),
+        buffer = new Buffer(transient.map.data.value.toArrayBuffer());
+  
+      await stub.putPrivateData("criticalEvent", args[0], buffer);
+    }
+};
+
+shim.start(new Chaincode());
