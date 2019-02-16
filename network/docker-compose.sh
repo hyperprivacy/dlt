@@ -13,7 +13,6 @@ set -e
 export MSYS_NO_PATHCONV=1
 starttime=$(date +%s)
 LANGUAGE=${1:-"node"}
-CC_SRC_PATH=/opt/gopath/src/github.com/iot/node
 
 
 # clean the keystore

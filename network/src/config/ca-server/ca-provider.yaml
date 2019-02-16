@@ -123,10 +123,10 @@ registry:
 
   # Contains identity information which is used when LDAP is disabled
   identities:
-     - name: supervisor_admin
-       pass: supervisor2019
+     - name: provider_admin
+       pass: provider2019
        type: admin
-       affiliation: "org1.developers"
+       affiliation: ""
        attrs:
           hf.Registrar.Roles: "*"
           hf.Registrar.DelegateRoles: "*"
@@ -135,10 +135,10 @@ registry:
           hf.GenCRL: true
           hf.Registrar.Attributes: "*"
           hf.AffiliationMgr: true
-          email: "glibo.kristijan@gmail.com"
-          password: "$2b$10$bSY7C5MrQmuKmg5R15OZZ.YXxjMpCAY.WFBBgZ6mHhMQVbEQFgZyu",
+          email: "provider@hyperprivacy.network"
+          password: "$2b$10$bEuK4Msz7BBuzXIcDn.PWet7XBVCcvg4T7hKJlqgkVt1mWjITP.Uq"
           first_name: "John"
-          last_name: "Doe"
+          last_name: "Doe Provider"
 
 #############################################################################
 #  Database section

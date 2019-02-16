@@ -135,10 +135,10 @@ registry:
           hf.GenCRL: true
           hf.Registrar.Attributes: "*"
           hf.AffiliationMgr: true
-          email: "glibo.kristijan@gmail.com"
-          password: "$2b$10$bSY7C5MrQmuKmg5R15OZZ.YXxjMpCAY.WFBBgZ6mHhMQVbEQFgZyu",
+          email: "enduser@hyperprivacy.network"
+          password: "$2b$10$6qfncanV2kASpmx6sgji2u6cWgacuwtGnauabrb/Lz6uqj2gcRus6"
           first_name: "John"
-          last_name: "Doe"
+          last_name: "Doe End"
 
 #############################################################################
 #  Database section

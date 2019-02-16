@@ -9,12 +9,11 @@ require('../../../../config');
 
 let hfc = require('fabric-client'),
     helper = require('../helper'),
-    orgName = process.argv[2],
     util = require('util'),
     admins = hfc.getConfigSetting('admins'),
     adminUser = null;
 
-var enrollAdmin = async function() {
+var enrollAdmin = async function(orgName) {
 
     if (!admins[orgName]) {
         console.log(util.format('Admin for organisation %s is not defined in config.json', orgName));
@@ -38,9 +37,6 @@ var enrollAdmin = async function() {
             enrollmentSecret: admins[orgName].secret
           })
           .then( enrollment => {
-
-            console.log("ENROLL", enrollment);
-
             return client.createUser({
                 username: admins[orgName].username,
                 mspid: orgName + 'MSP',
@@ -53,14 +49,14 @@ var enrollAdmin = async function() {
 
           })
           .then( user => {
-              console.log("fresh created", user);
+              console.log("admin enrolled", orgName);
           })
 
     })
     .then(() => {
-        console.log("from persistance", adminUser);
+        console.log("admin loaded from persistance", orgName);
     });
 
 }
 
-enrollAdmin();
+exports.enrollAdmin = enrollAdmin;
