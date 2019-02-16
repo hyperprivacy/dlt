@@ -6,9 +6,7 @@
 
 "use strict";
 const shim = require("fabric-shim");
-const clientIdentity = shim.ClientIdentity;
-const util = require("util");
-const uuidV1 = require("uuid/v1");
+const JSON = require("circular-json");
 
 let Chaincode = class {
   // The Init method is called when the Smart Contract 'Chat' is instantiated by the blockchain network
@@ -28,8 +26,8 @@ let Chaincode = class {
 
     let method = this[ret.fcn];
     if (!method) {
-      console.error("no function of name:" + ret.fcn + " found");
-      throw new Error("Received unknown function " + ret.fcn + " invocation");
+      console.error('no function of name:' + ret.fcn + ' found');
+      throw new Error('Received unknown function ' + ret.fcn + ' invocation');
     }
     try {
       let payload = await method(stub, ret.params, this);
@@ -56,6 +54,100 @@ let Chaincode = class {
   
       await stub.putPrivateData("criticalEvent", args[0], buffer);
     }
+
+    async getEvents(stub, args, thisClass) {
+
+      let query = `{"selector":{"type":"event"}}`
+
+      // function that return iterator
+      const iterator = await stub.getPrivateDataQueryResult("defaultEvent", query);
+
+      console.log(iterator);
+  
+      //to call async function into another, define into invoke function  with "this" third param
+      // define function and use thisClass as third param for declaration
+      const getAllResults = thisClass['getAllResults'];
+  
+      // save data into const results from getAllResults
+      const results = await getAllResults(iterator, false);
+  
+      // convert from buffer bytes array to string
+      // also define that into query script response_payload to string
+      var string = JSON.stringify(results);
+  
+      return Buffer.from(string);
+    }
+
+    async getCriticalEvents(stub, args, thisClass) {
+
+      let query = `{"selector":{"type":"event"}}`
+
+      // function that return iterator
+      const { iterator } = await stub.getPrivateDataQueryResult("criticalEvent", query);
+  
+  
+      //to call async function into another, define into invoke function  with "this" third param
+      // define function and use thisClass as third param for declaration
+      const getAllResults = thisClass['getAllResults'];
+  
+      // save data into const results from getAllResults
+      const results = await getAllResults(iterator, false);
+  
+      // convert from buffer bytes array to string
+      // also define that into query script response_payload to string
+      var string = JSON.stringify(results);
+  
+      return Buffer.from(string);
+    }
+
+
+     // get allResults
+  async getAllResults(iterator, isHistory) {
+    // array of results
+    let allResults = [];
+    while (true) {
+      // go trought response value
+      let res = await iterator.next();
+
+      // convert value(bytes json) into string
+      if (res.value && res.value.value.toString()) {
+        let jsonRes = {};
+        console.log("TO string", res.value.value.toString('utf8'));
+
+        if (isHistory && isHistory === true) {
+          jsonRes.TxId = res.value.tx_id;
+          jsonRes.Timestamp = res.value.timestamp;
+          jsonRes.IsDelete = res.value.is_delete.toString();
+          // convert from string into json object
+          try {
+            jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
+          } catch (err) {
+            console.log(err);
+            jsonRes.Value = res.value.value.toString('utf8');
+          }
+        } else {
+          // create struct(key, value)
+          // key= conversation id, value is properties of conversation object(grants, history, etc)
+          jsonRes.Key = res.value.key;
+          try {
+            jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+          } catch (err) {
+            console.log(err);
+            jsonRes.Record = res.value.value.toString('utf8');
+          }
+        }
+        // push json response into array allResults
+        allResults.push(jsonRes);
+      }
+      if (res.done) {
+        console.log('end of data');
+        // close iterator
+        await iterator.close();
+        console.info("INFOO", allResults);
+        return allResults;
+      }
+    }
+  }
 };
 
 shim.start(new Chaincode());

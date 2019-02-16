@@ -54,13 +54,13 @@ var instantiateChaincode = async function(
       // https://www.oodlestechnologies.com/blogs/Fabric-Chaincode-Endorsement-Policies-Simplified
       "endorsement-policy": {
         identities: [
-          { role: { name: "member", mspId: "ProviderMSP" } },
           { role: { name: "member", mspId: "SupervisorMSP" } },
           { role: { name: "member", mspId: "EndUserMSP" } },
-          { role: { name: "member", mspId: "IotMSP" } }
+          { role: { name: "member", mspId: "ProviderMSP" } },
+          { role: { name: "member", mspId: "IotMSP" } },
         ],
         policy: {
-          "1-of": [{ "signed-by": 0 }, { "signed-by": 1 }, { "signed-by": 2 }, { "signed-by": 3 }]
+          "1-of": [{ "signed-by": 0 }, { "signed-by": 1 }]
         }
       }
     };

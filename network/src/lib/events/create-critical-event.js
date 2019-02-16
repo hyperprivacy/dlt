@@ -6,6 +6,7 @@ var invoke = require('../chaincodes/invoke-chaincode');
 
 
 var transient = {
+    docType: 'event',
     sensor_id: uuidV1(),
     data: {
         door_opened: true,

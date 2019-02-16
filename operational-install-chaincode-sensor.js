@@ -2,7 +2,6 @@
 
 require('./config');
 
-var util = require('util');
 var path = require("path");
 var sleep = require("sleep");
 

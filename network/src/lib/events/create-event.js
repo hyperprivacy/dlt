@@ -6,6 +6,7 @@ var invoke = require('../chaincodes/invoke-chaincode');
 
 
 var transient = {
+    type: "event",
     sensor_id: uuidV1(),
     data: {
         temperature: 20

@@ -6,9 +6,6 @@
 
 'use strict';
 const shim = require('fabric-shim');
-const clientIdentity = shim.ClientIdentity;
-const util = require('util');
-const uuidV1 = require('uuid/v1');
 
 let Chaincode = class {
 
