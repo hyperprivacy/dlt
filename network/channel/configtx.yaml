@@ -133,7 +133,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.iot.iot-blockchain.com
+            - Host: peer0.iot.hyperprivacy.network.com
               Port: 7051
 
     - &EndUser
@@ -271,7 +271,7 @@ Orderer: &OrdererDefaults
     OrdererType: solo
 
     Addresses:
-        - orderer.iot-blockchain.com:7050
+        - orderer.hyperprivacy.network.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -371,7 +371,7 @@ Profiles:
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
-            CipConsortium:
+            EventConsortium:
                 Organizations:
                     - *Supervisor
                     - *Iot

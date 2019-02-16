@@ -34,3 +34,4 @@ services:
     command: peer node start
     volumes:
         - /var/run/:/host/var/run/
+        - ./channel/artifacts:/etc/hyperledger/configtx

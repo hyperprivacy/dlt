@@ -1,7 +1,7 @@
 "use strict";
 
 var util = require("util");
-var helper = require("../../helper");
+var helper = require("../helper");
 var logger = helper.getLogger("Join-Channel");
 
 /* 

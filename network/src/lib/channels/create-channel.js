@@ -1,4 +1,4 @@
-var helper = require('../../helper');
+var helper = require('../helper');
 
 var createChannel = async function(channelName,channelConfigInBytes, orgName, username){
     try {

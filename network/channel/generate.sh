@@ -6,7 +6,7 @@
 #
 export PATH=$GOPATH/src/github.com/hyperledger/fabric/build/bin:${PWD}/../bin:${PWD}:$PATH
 export FABRIC_CFG_PATH=${PWD}
-export PATH=/home/davor/Desktop/dlt/hyperledger_privacy/network/channel/bin
+export PATH=/home/davor/Desktop/dlt/network/channel/bin
 CHANNEL_NAME=eventchannel
 
 # remove previous crypto material and config transactions

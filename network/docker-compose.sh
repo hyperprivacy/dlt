@@ -13,11 +13,6 @@ set -e
 export MSYS_NO_PATHCONV=1
 starttime=$(date +%s)
 LANGUAGE=${1:-"node"}
-CC_SRC_PATH=/opt/gopath/src/github.com/iot/node
-
-
-# clean the keystore
-rm -rf ./hfc-key-store
 
 docker-compose -f ./docker-compose.yaml down
 
@@ -29,3 +24,13 @@ docker-compose -f ./docker-compose.yaml up -d
 export FABRIC_START_TIMEOUT=10
 #echo ${FABRIC_START_TIMEOUT}
 sleep ${FABRIC_START_TIMEOUT}
+
+
+# Create the channel
+cd ..
+
+node operational-create-channel.js
+
+sleep 5
+
+node operational-join-channel.js
