@@ -237,7 +237,7 @@ certificateAuthorities:
       - enrollId: supervisor_admin
         enrollSecret: supervisor2019
     # [Optional] The optional name of the CA.
-    caName: ca.enduser.hyperprivacy.network
+    caName: ca.supervisor.hyperprivacy.network
 
   ca.provider.hyperprivacy.network:
     url: http://localhost:8054

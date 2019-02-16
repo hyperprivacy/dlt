@@ -12,14 +12,16 @@ set -e
 # don't rewrite paths for Windows Git Bash users
 export MSYS_NO_PATHCONV=1
 starttime=$(date +%s)
+LANGUAGE=${1:-"node"}
+CC_SRC_PATH=/opt/gopath/src/github.com/iot/node
 
 
 # clean the keystore
 rm -rf ./hfc-key-store
 
-docker-compose -f ./network/docker-compose.yaml down
+docker-compose -f ./docker-compose.yaml down
 
-docker-compose -f ./network/docker-compose.yaml up -d
+docker-compose -f ./docker-compose.yaml up -d
 
 
 # wait for Hyperledger Fabric to start

@@ -1,0 +1,76 @@
+#
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+version: '2'
+
+services:
+
+  ca.supervisor.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.supervisor.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supervisor.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/677477074acd7f2c1ba0731459fbcf864fae506dbb185d1557e76193759bd8b7_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supervisor.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/677477074acd7f2c1ba0731459fbcf864fae506dbb185d1557e76193759bd8b7_sk
+    ports:
+      - "7054:7054"
+    command: sh -c "fabric-ca-server start -b supervisor_admin:supervisor2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.supervisor.hyperprivacy.network
+
+  ca.provider.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.provider.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.provider.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/11cae5cdf75878c9658cea124afc0f20ee3ed8f171518c085ba73e8c11ca3d66_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.provider.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/11cae5cdf75878c9658cea124afc0f20ee3ed8f171518c085ba73e8c11ca3d66_sk
+    ports:
+      - "8054:7054"
+    command: sh -c "fabric-ca-server start -b provider_admin:provider2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.provider.hyperprivacy.network
+  
+  ca.iot.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.iot.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.iot.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/be2df7297d4d5a1971bf3433257d8930776367202d4595c56db815531cf5d71b_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.iot.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/be2df7297d4d5a1971bf3433257d8930776367202d4595c56db815531cf5d71b_sk
+    ports:
+      - "9054:7054"
+    command: sh -c "fabric-ca-server start -b iot_admin:iot2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.iot.hyperprivacy.network
+  
+  ca.enduser.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.enduser.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.enduser.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/669a4069b9bb58c0a43853b50d3b6d154e446fc06cfbb185fe551a981250288b_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.enduser.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/669a4069b9bb58c0a43853b50d3b6d154e446fc06cfbb185fe551a981250288b_sk
+    ports:
+      - "10054:7054"
+    command: sh -c "fabric-ca-server start -b enduser_admin:enduser2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.enduser.hyperprivacy.network
