@@ -43,6 +43,7 @@ type Device {
 
 type Event {
 	id: String!
+	name: String!
 	type: String!
 	device: Device!
 	creation: DateTime!

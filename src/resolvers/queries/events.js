@@ -13,25 +13,41 @@ const events = (parent, args, context, info) => {
 				device: device,
 				creation: Date.now() - Math.random() * 123123,
 				id: '2',
-				type: 'temperature-reading-v1'
+				name: 'temperature-reading-v1',
+				type: 'regular',
+				data: {
+					data: '{ "hello": "world"}'
+				}
 			},
 			{
 				device: device,
 				creation: Date.now() - Math.random() * 123123,
 				id: '1',
-				type: 'temperature-reading-v1'
+				name: 'temperature-reading-v1',
+				type: 'regular',
+				data: {
+					data: '{ "hello": "world"}'
+				}
 			},
 			{
 				device: device,
 				creation: Date.now() - Math.random() * 123123,
 				id: '3',
-				type: 'temperature-reading-v1'
+				name: 'temperature-reading-v1',
+				type: 'regular',
+				data: {
+					data: '{ "hello": "world"}'
+				}
 			},
 			{
 				device: device,
 				creation: Date.now(),
 				id: '4',
-				type: 'temperature-reading-v1'
+				name: 'temperature-reading-v1',
+				type: 'regular',
+				data: {
+					data: '{ "hello": "world"}'
+				}
 			}
 		]);
 	});
