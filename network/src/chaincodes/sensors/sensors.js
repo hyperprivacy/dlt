@@ -47,9 +47,9 @@ let Chaincode = class {
 
     // define args
     let sensorId = uuidV1();
-    let status = args[0];
+    let mac = args[0];
     let type = args[1];
-    let macadress = args[2];
+    let name = args[2];
     let description = args[3];
 
 
@@ -63,9 +63,9 @@ let Chaincode = class {
     let sensor = {};
     sensor.docType = "sensor";
     sensor.id = sensorId;
-    sensor.status = status;
+    sensor.mac = mac;
     sensor.type = type;
-    sensor.macadress = macadress;
+    sensor.name = name;
     sensor.description = description;
 
 

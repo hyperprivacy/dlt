@@ -1,6 +1,6 @@
 [
   {
-    "name": "eventDetail",
+    "name": "eventData",
     "policy": {
       "identities": [
         {

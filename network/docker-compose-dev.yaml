@@ -1,0 +1,199 @@
+#
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+version: '2'
+
+services:
+
+  ca.supervisor.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.supervisor.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supervisor.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/9f2def53d04cdc96e385ceffc7ff40267090b438acbffd165e79a86c11367762_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.supervisor.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/9f2def53d04cdc96e385ceffc7ff40267090b438acbffd165e79a86c11367762_sk
+    ports:
+      - "7054:7054"
+    command: sh -c "fabric-ca-server start -b supervisor_admin:supervisor2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-supervisor.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
+    container_name: ca.supervisor.hyperprivacy.network
+
+  ca.provider.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.provider.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.provider.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/fd5e81cd76b13cb0c050eb55544c4f7fc2c9786ac1bc64043e27289cb4c931ce_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.provider.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/fd5e81cd76b13cb0c050eb55544c4f7fc2c9786ac1bc64043e27289cb4c931ce_sk
+    ports:
+      - "8054:7054"
+    command: sh -c "fabric-ca-server start -b provider_admin:provider2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-provider.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
+    container_name: ca.provider.hyperprivacy.network
+  
+  ca.iot.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.iot.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.iot.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/e26035e9b4a8571e054da1ba810c41eab3e2979d44cf1d5aab01cb9960f69110_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.iot.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/e26035e9b4a8571e054da1ba810c41eab3e2979d44cf1d5aab01cb9960f69110_sk
+    ports:
+      - "9054:7054"
+    command: sh -c "fabric-ca-server start -b iot_admin:iot2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-iot.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
+    container_name: ca.iot.hyperprivacy.network
+  
+  ca.enduser.hyperprivacy.network:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.enduser.hyperprivacy.network
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.enduser.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4677180fb9f0e6e3626c7d0941af0ab0ad768ccd44f57a4a06573c4f79fdfd2d_sk
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.enduser.hyperprivacy.network.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4677180fb9f0e6e3626c7d0941af0ab0ad768ccd44f57a4a06573c4f79fdfd2d_sk
+    ports:
+      - "10054:7054"
+    command: sh -c "fabric-ca-server start -b enduser_admin:enduser2019 -d"
+    volumes:
+      - ./channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-enduser.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
+    container_name: ca.enduser.hyperprivacy.network
+
+  orderer.hyperprivacy.network.com:
+    container_name: orderer.hyperprivacy.network.com
+    image: hyperledger/fabric-orderer
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/crypto/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=false
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/crypto/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/crypto/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto/orderer/tls/ca.crt, /etc/hyperledger/crypto/peerSupervisor/tls/ca.crt, /etc/hyperledger/crypto/peerProvider/tls/ca.crt, /etc/hyperledger/crypto/peerIot/tls/ca.crt, /etc/hyperledger/crypto/peerEndUser/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderers
+    command: orderer
+    ports:
+      - 7050:7050
+    volumes:
+        - ./channel/artifacts:/etc/hyperledger/configtx
+        - ./channel/crypto-config/ordererOrganizations/orderer.hyperprivacy.network.com/orderers/orderer.orderer.hyperprivacy.network.com/:/etc/hyperledger/crypto/orderer
+        - ./channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/peers/peer0.supervisor.hyperprivacy.network.com/:/etc/hyperledger/crypto/peerSupervisor
+        - ./channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/peers/peer0.provider.hyperprivacy.network.com/:/etc/hyperledger/crypto/peerProvider
+        - ./channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/peers/peer0.iot.hyperprivacy.network.com/:/etc/hyperledger/crypto/peerIot
+        - ./channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/peers/peer0.enduser.hyperprivacy.network.com/:/etc/hyperledger/crypto/peerEndUser
+
+  peer0.supervisor.hyperprivacy.network.com:
+    container_name: peer0.supervisor.hyperprivacy.network.com
+    extends:
+      file:   base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.supervisor.hyperprivacy.network.com
+      - CORE_PEER_LOCALMSPID=SupervisorMSP
+      - CORE_PEER_ADDRESS=peer0.supervisor.hyperprivacy.network.com:7051    
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.supervisor.hyperprivacy.network.com:7051
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.supervisor.hyperprivacy.network.com:7052
+
+    ports:
+      - 7051:7051
+      - 7052:7052
+      - 7053:7053
+    volumes:
+        - ./channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/peers/peer0.supervisor.hyperprivacy.network.com/:/etc/hyperledger/crypto/peer
+    depends_on:
+      - orderer.hyperprivacy.network.com
+
+  peer0.provider.hyperprivacy.network.com:
+    container_name: peer0.provider.hyperprivacy.network.com
+    extends:
+      file:   base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.provider.hyperprivacy.network.com
+      - CORE_PEER_LOCALMSPID=ProviderMSP
+      - CORE_PEER_ADDRESS=peer0.provider.hyperprivacy.network.com:7051   
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.provider.hyperprivacy.network.com:7051
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.provider.hyperprivacy.network.com:7052
+    ports:
+      - 8051:7051
+      - 8052:7052
+      - 8053:7053
+    volumes:
+        - ./channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/peers/peer0.provider.hyperprivacy.network.com/:/etc/hyperledger/crypto/peer
+    depends_on:
+      - orderer.hyperprivacy.network.com
+  
+  peer0.iot.hyperprivacy.network.com:
+    container_name: peer0.iot.hyperprivacy.network.com
+    extends:
+      file:   base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.iot.hyperprivacy.network.com
+      - CORE_PEER_LOCALMSPID=IotMSP
+      - CORE_PEER_ADDRESS=peer0.iot.hyperprivacy.network.com:7051   
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.iot.hyperprivacy.network.com:7051
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.iot.hyperprivacy.network.com:7052
+    ports:
+      - 9051:7051
+      - 9052:7052
+      - 9053:7053
+    volumes:
+        - ./channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/peers/peer0.iot.hyperprivacy.network.com/:/etc/hyperledger/crypto/peer
+    depends_on:
+      - orderer.hyperprivacy.network.com
+  
+  peer0.enduser.hyperprivacy.network.com:
+    container_name: peer0.enduser.hyperprivacy.network.com
+    extends:
+      file:   base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.enduser.hyperprivacy.network.com
+      - CORE_PEER_LOCALMSPID=EndUserMSP
+      - CORE_PEER_ADDRESS=peer0.enduser.hyperprivacy.network.com:7051   
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.enduser.hyperprivacy.network.com:7051
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.enduser.hyperprivacy.network.com:7052
+    ports:
+      - 10051:7051
+      - 10052:7052
+      - 10053:7053
+    volumes:
+        - ./channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/peers/peer0.enduser.hyperprivacy.network.com/:/etc/hyperledger/crypto/peer
+    depends_on:
+      - orderer.hyperprivacy.network.com
+
+  couchdb:
+    container_name: couchdb
+    image: hyperledger/fabric-couchdb
+    # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
+    # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
+    environment:
+      - COUCHDB_USER=
+      - COUCHDB_PASSWORD=
+    ports:
+      - 5984:5984
+

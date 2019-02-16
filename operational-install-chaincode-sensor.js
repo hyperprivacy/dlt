@@ -12,28 +12,28 @@ var installChaincode = require('./network/src/lib/chaincodes/install-chancode');
 var chaincodeSensorPath = path.join(__dirname, 'network/src/chaincodes/sensors');
 
 
-installChaincode.installChaincode(['peer0.supervisor.hyperprivacy.network.com'], "sensor",chaincodeSensorPath,'v0','node','Supervisor')
+installChaincode.installChaincode(['peer0.supervisor.hyperprivacy.network.com'], "sensors",chaincodeSensorPath,'v0','node','Supervisor')
 .then((res) => {
     console.log(res);
 });
 
 sleep.sleep(5);
 
-installChaincode.installChaincode(['peer0.provider.hyperprivacy.network.com'], "sensor",chaincodeSensorPath,'v0','node','Provider')
+installChaincode.installChaincode(['peer0.provider.hyperprivacy.network.com'], "sensors",chaincodeSensorPath,'v0','node','Provider')
 .then((res) => {
     console.log(res);
 });
 
 sleep.sleep(5);
 
-installChaincode.installChaincode(['peer0.enduser.hyperprivacy.network.com'], "sensor",chaincodeSensorPath,'v0','node','EndUser')
+installChaincode.installChaincode(['peer0.enduser.hyperprivacy.network.com'], "sensors",chaincodeSensorPath,'v0','node','EndUser')
 .then((res) => {
     console.log(res);
 });
 
 sleep.sleep(5);
 
-installChaincode.installChaincode(['peer0.iot.hyperprivacy.network.com'], "sensor",chaincodeSensorPath,'v0','node','Iot')
+installChaincode.installChaincode(['peer0.iot.hyperprivacy.network.com'], "sensors",chaincodeSensorPath,'v0','node','Iot')
 .then((res) => {
     console.log(res);
 });
