@@ -6,7 +6,10 @@
 	"scripts": {
 		"start": "node main.js"
 	},
-	"keywords": [ "fabric-client sample app", "gdpr node app" ],
+	"keywords": [
+		"fabric-client sample app",
+		"gdpr node app"
+	],
 	"engines": {
 		"node": ">=8.9.4 <9.0",
 		"npm": ">=5.6.0 <6.0"
@@ -31,8 +34,11 @@
 		"graphql": "^14.1.1",
 		"grpc": "^1.17.0",
 		"jsonwebtoken": "^7.3.0",
+		"lodash": "^4.17.11",
 		"log4js": "^0.6.38",
-		"rainbow-node-sdk": "^1.52.0"
+		"nano": "^8.0.0",
+		"rainbow-node-sdk": "^1.52.0",
+		"sleep": "^6.0.0"
 	},
 	"devDependencies": {
 		"nodemon": "^1.18.9"

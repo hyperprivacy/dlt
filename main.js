@@ -1,4 +1,5 @@
 require('./config');
+
 const { ApolloServer } = require('apollo-server');
 
 const { typeDefs } = require('./src/typeDefs');
@@ -17,7 +18,7 @@ const resolvers = {
 };
 
 const notificator = new RainbowNotificator(() => {
-	notificator.sendAlert('Test alert');
+	//notificator.sendAlert('Test alert');
 
 	const server = new ApolloServer({
 		typeDefs,
