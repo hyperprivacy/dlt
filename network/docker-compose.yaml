@@ -22,6 +22,7 @@ services:
     command: sh -c "fabric-ca-server start -b supervisor_admin:supervisor2019 -d"
     volumes:
       - ./channel/crypto-config/peerOrganizations/supervisor.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-supervisor.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
     container_name: ca.supervisor.hyperprivacy.network
 
   ca.provider.hyperprivacy.network:
@@ -39,6 +40,7 @@ services:
     command: sh -c "fabric-ca-server start -b provider_admin:provider2019 -d"
     volumes:
       - ./channel/crypto-config/peerOrganizations/provider.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-provider.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
     container_name: ca.provider.hyperprivacy.network
   
   ca.iot.hyperprivacy.network:
@@ -56,6 +58,7 @@ services:
     command: sh -c "fabric-ca-server start -b iot_admin:iot2019 -d"
     volumes:
       - ./channel/crypto-config/peerOrganizations/iot.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-iot.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
     container_name: ca.iot.hyperprivacy.network
   
   ca.enduser.hyperprivacy.network:
@@ -73,6 +76,7 @@ services:
     command: sh -c "fabric-ca-server start -b enduser_admin:enduser2019 -d"
     volumes:
       - ./channel/crypto-config/peerOrganizations/enduser.hyperprivacy.network.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ./src/config/ca-server/ca-enduser.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
     container_name: ca.enduser.hyperprivacy.network
 
   orderer.hyperprivacy.network.com:

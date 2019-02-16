@@ -65,7 +65,7 @@ var joinChannel = async function(channelName, peers, orgName, username) {
       let peers_result = peers_results[i];
       if (peers_result.response && peers_result.response.status === 200) {
         // if peer is added please add it to success array
-        successMsg.push(
+        successMsg.message.push(
           util.format(
             "Succesfully joined peer %s in organization to the channel: %s",
             peers[i],
@@ -89,15 +89,13 @@ var joinChannel = async function(channelName, peers, orgName, username) {
       eh.disconnect();
     });
   } catch (error) {
-    throw {
+    return {
       sucess: false,
       message: "Something is wrong on our side.",
       status: 500,
       info: error.toString()
     };
   }
-
-  console.log("error", errorMsg);
 
   if (!errorMsg.message.length) {
     // build a response
@@ -108,7 +106,7 @@ var joinChannel = async function(channelName, peers, orgName, username) {
     return response;
   } else {
     errorMsg.status = "BAD_REQUEST";
-    throw errorMsg;
+    return errorMsg;
   }
 };
 exports.joinChannel = joinChannel;

@@ -31,7 +31,8 @@
     "fs-extra": "^2.0.0",
     "grpc": "^1.17.0",
     "jsonwebtoken": "^7.3.0",
-    "log4js": "^0.6.38"
+    "log4js": "^0.6.38",
+    "sleep": "^6.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

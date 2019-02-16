@@ -50,4 +50,4 @@ client:
       path: "./wallet/iot/pki"
 
     # [Optional]. Specific to Composer environment
-    wallet: wallet-name
+    wallet: iot-wallet
