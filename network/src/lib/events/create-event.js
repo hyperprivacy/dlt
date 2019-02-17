@@ -21,7 +21,7 @@ function createEvent(data) {
 			[ uuidV1() ],
 			'EndUser',
 			'enduser_admin',
-			transient
+			data
 		)
 		.then((res) => {
 			console.log(res);

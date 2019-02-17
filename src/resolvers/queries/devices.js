@@ -5,7 +5,6 @@ const devices = (parent, args, context, info) => {
 	return getAllSensors().then((sensors) => {
 		return _.map(sensors, (sensor) => {
 			return {
-				id: sensor.Record.id,
 				mac: sensor.Record.mac,
 				type: sensor.Record.type,
 				description: sensor.Record.description,

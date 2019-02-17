@@ -25,6 +25,9 @@ const server = new ApolloServer({
 	},
 	subscriptions: {
 		path: '/graphql'
+	},
+	context: ({ session }) => {
+		return { session };
 	}
 });
 

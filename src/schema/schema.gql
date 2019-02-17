@@ -42,7 +42,7 @@ type Device {
 }
 
 type Event {
-	device: Device!
+	device: Device
 	data: String
 }
 

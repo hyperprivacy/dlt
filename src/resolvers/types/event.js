@@ -3,6 +3,10 @@ const { getOneSensor } = require('../../../network/src/lib/sensors/get-one-senso
 const Event = {
 	device: (parent, args, context, info) => {
 		return getOneSensor(parent.sensor_id).then((sensors) => {
+			if (sensors.length < 1) {
+				return null;
+			}
+
 			const sensor = sensors[0];
 
 			return {
