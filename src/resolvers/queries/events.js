@@ -1,56 +1,22 @@
-const events = (parent, args, context, info) => {
-	return new Promise((resolve) => {
-		const device = {
-			description: 'Transporter-1333 temperature sensor.',
-			mac: '123-123-123-123',
-			id: '213213',
-			type: 'TemperatureSensor-324',
-			name: 'TP-1231'
-		};
+const { getAllEvents } = require('../../../network/src/lib/events/query-event');
+const { getAllCriticalEvents } = require('../../../network/src/lib/events/query-critical-event');
 
-		resolve([
-			{
-				device: device,
-				creation: Date.now() - Math.random() * 123123,
-				id: '2',
-				name: 'temperature-reading-v1',
-				type: 'regular',
-				data: {
-					data: '{ "hello": "world"}'
-				}
-			},
-			{
-				device: device,
-				creation: Date.now() - Math.random() * 123123,
-				id: '1',
-				name: 'temperature-reading-v1',
-				type: 'regular',
-				data: {
-					data: '{ "hello": "world"}'
-				}
-			},
-			{
-				device: device,
-				creation: Date.now() - Math.random() * 123123,
-				id: '3',
-				name: 'temperature-reading-v1',
-				type: 'regular',
-				data: {
-					data: '{ "hello": "world"}'
-				}
-			},
-			{
-				device: device,
-				creation: Date.now(),
-				id: '4',
-				name: 'temperature-reading-v1',
-				type: 'regular',
-				data: {
-					data: '{ "hello": "world"}'
-				}
-			}
-		]);
+const events = (parent, args, context, info) => {
+	console.log(
+		'--------------------------------------------------------------------------------------------------------------------------------------------------------------'
+	);
+
+	return Promise.all([ getAllEvents(), getAllCriticalEvents() ]).then(([ events, criticalEvents ]) => {
+		return events.concat(criticalEvents).map((event) => {
+			return {
+				data: typeof event.Record.data == String ? event.Record.data : JSON.stringify(event.Record.data),
+				sensor_id: event.Record.sensor_id
+			};
+		});
+
+		console.log(
+			'--------------------------------------------------------------------------------------------------------------------------------------------------------------'
+		);
 	});
 };
-
 module.exports = { events };

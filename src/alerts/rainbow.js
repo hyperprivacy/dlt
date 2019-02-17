@@ -1,7 +1,7 @@
 const RainbowSDK = require('rainbow-node-sdk');
 
 class RainbowNotificator {
-	constructor(onDone) {
+	constructor() {
 		this.rainbowSDK = new RainbowSDK({
 			rainbow: {
 				host: 'official'
@@ -25,7 +25,6 @@ class RainbowNotificator {
 
 		this.rainbowSDK.events.on('rainbow_onready', () => {
 			console.log('Rainbow ready');
-			onDone();
 		});
 
 		this.rainbowSDK.start();

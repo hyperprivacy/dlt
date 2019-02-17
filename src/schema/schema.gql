@@ -11,7 +11,7 @@ type Mutation {
 
 type Query {
 	viewer: User
-	events(start: DateTime, end: DateTime): [Event!]
+	events: [Event!]
 	devices: [Device!]!
 	organization: Organization
 }
@@ -42,16 +42,8 @@ type Device {
 }
 
 type Event {
-	id: String!
-	name: String!
-	type: String!
 	device: Device!
-	creation: DateTime!
-	data: EventData
-}
-
-type EventData {
-	data: String!
+	data: String
 }
 
 input LoginInput {
@@ -71,5 +63,7 @@ input RevokeSensorInput {
 }
 
 input PublishEventInput {
-	data: Binary
+	deviceId: String!
+	type: String!
+	data: String
 }

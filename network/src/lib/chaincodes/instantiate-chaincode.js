@@ -55,9 +55,7 @@ var instantiateChaincode = async function(
       "endorsement-policy": {
         identities: [
           { role: { name: "member", mspId: "SupervisorMSP" } },
-          { role: { name: "member", mspId: "EndUserMSP" } },
-          { role: { name: "member", mspId: "ProviderMSP" } },
-          { role: { name: "member", mspId: "IotMSP" } },
+          { role: { name: "member", mspId: "EndUserMSP" } }
         ],
         policy: {
           "1-of": [{ "signed-by": 0 }, { "signed-by": 1 }]
