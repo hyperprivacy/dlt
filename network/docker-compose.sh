@@ -70,7 +70,6 @@ sleep 5
 
 node operational-instantiate-chaincode-sensors.js
 
-
 sleep 5
 
 node operational-instantiate-chaincode-events.js

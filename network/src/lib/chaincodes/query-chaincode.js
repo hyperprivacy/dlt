@@ -23,12 +23,9 @@ var queryChaincode = async function (peer,channelName,chaincodeName, fcn, args, 
 			request_timeout: 200000
 		};
         let response_payloads = await channel.queryByChaincode(request, true);
-        
-        console.log("RESPONSE", response_payloads);
 
 
 		if (response_payloads) {
-            console.log(JSON.parse(response_payloads));
 			return JSON.parse(response_payloads);
 
 		} else {
