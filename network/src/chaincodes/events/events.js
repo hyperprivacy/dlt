@@ -26,8 +26,8 @@ let Chaincode = class {
 
     let method = this[ret.fcn];
     if (!method) {
-      console.error('no function of name:' + ret.fcn + ' found');
-      throw new Error('Received unknown function ' + ret.fcn + ' invocation');
+      console.error("no function of name:" + ret.fcn + " found");
+      throw new Error("Received unknown function " + ret.fcn + " invocation");
     }
     try {
       let payload = await method(stub, ret.params, this);
@@ -40,68 +40,70 @@ let Chaincode = class {
 
   // create shared private conversation collection org1
   async createEvent(stub, args) {
-
     let transient = stub.getTransient(),
       buffer = new Buffer(transient.map.data.value.toArrayBuffer());
 
     await stub.putPrivateData("defaultEvent", args[0], buffer);
   }
 
-    // create shared private conversation collection org1 
-    async createCriticalEvent(stub, args) {
-      let transient = stub.getTransient(),
-        buffer = new Buffer(transient.map.data.value.toArrayBuffer());
-  
-      await stub.putPrivateData("criticalEvent", args[0], buffer);
+  // create shared private conversation collection org1
+  async createCriticalEvent(stub, args) {
+    let transient = stub.getTransient(),
+      buffer = new Buffer(transient.map.data.value.toArrayBuffer());
+
+    await stub.putPrivateData("criticalEvent", args[0], buffer);
+  }
+
+  async getEvents(stub, args, thisClass) {
+    let query = `{"selector":{"_id":{"$gt": null}}}`;
+
+    // function that return iterator
+    const { iterator } = await stub.getPrivateDataQueryResult("defaultEvent", query);
+
+    //to call async function into another, define into invoke function  with "this" third param
+    // define function and use thisClass as third param for declaration
+    const getAllResults = thisClass["getAllResults"];
+
+    // save data into const results from getAllResults
+    const results = await getAllResults(iterator, false);
+
+    // convert from buffer bytes array to string
+    // also define that into query script response_payload to string
+    var string = JSON.stringify(results);
+
+    return Buffer.from(string);
+  }
+
+  async getCriticalEvents(stub, args, thisClass) {
+    let query = `{"selector":{"_id":{"$gt": null}}}`;
+
+    // function that return iterator
+    const { iterator } = await stub.getPrivateDataQueryResult("criticalEvent", query);
+
+    //to call async function into another, define into invoke function  with "this" third param
+    // define function and use thisClass as third param for declaration
+    const getAllResults = thisClass["getAllResults"];
+
+    // save data into const results from getAllResults
+    const results = await getAllResults(iterator, false);
+
+    // convert from buffer bytes array to string
+    // also define that into query script response_payload to string
+    var string = JSON.stringify(results);
+
+    return Buffer.from(string);
+  }
+
+  async getEventById(stub, args) {
+    let allResults = await stub.getPrivateData("defaultEvent", args[0]);
+
+    if (!allResults) {
+      throw shim.log("Can't get data from state: ", allResults);
     }
+    return allResults;
+  }
 
-    async getEvents(stub, args, thisClass) {
-
-      let query = `{"selector":{"type":"event"}}`
-
-      // function that return iterator
-      const iterator = await stub.getPrivateDataQueryResult("defaultEvent", query);
-
-      console.log(iterator);
-  
-      //to call async function into another, define into invoke function  with "this" third param
-      // define function and use thisClass as third param for declaration
-      const getAllResults = thisClass['getAllResults'];
-  
-      // save data into const results from getAllResults
-      const results = await getAllResults(iterator, false);
-  
-      // convert from buffer bytes array to string
-      // also define that into query script response_payload to string
-      var string = JSON.stringify(results);
-  
-      return Buffer.from(string);
-    }
-
-    async getCriticalEvents(stub, args, thisClass) {
-
-      let query = `{"selector":{"type":"event"}}`
-
-      // function that return iterator
-      const { iterator } = await stub.getPrivateDataQueryResult("criticalEvent", query);
-  
-  
-      //to call async function into another, define into invoke function  with "this" third param
-      // define function and use thisClass as third param for declaration
-      const getAllResults = thisClass['getAllResults'];
-  
-      // save data into const results from getAllResults
-      const results = await getAllResults(iterator, false);
-  
-      // convert from buffer bytes array to string
-      // also define that into query script response_payload to string
-      var string = JSON.stringify(results);
-  
-      return Buffer.from(string);
-    }
-
-
-     // get allResults
+  // get allResults
   async getAllResults(iterator, isHistory) {
     // array of results
     let allResults = [];
@@ -112,7 +114,7 @@ let Chaincode = class {
       // convert value(bytes json) into string
       if (res.value && res.value.value.toString()) {
         let jsonRes = {};
-        console.log("TO string", res.value.value.toString('utf8'));
+        console.log("TO string", res.value.value.toString("utf8"));
 
         if (isHistory && isHistory === true) {
           jsonRes.TxId = res.value.tx_id;
@@ -120,27 +122,27 @@ let Chaincode = class {
           jsonRes.IsDelete = res.value.is_delete.toString();
           // convert from string into json object
           try {
-            jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
+            jsonRes.Value = JSON.parse(res.value.value.toString("utf8"));
           } catch (err) {
             console.log(err);
-            jsonRes.Value = res.value.value.toString('utf8');
+            jsonRes.Value = res.value.value.toString("utf8");
           }
         } else {
           // create struct(key, value)
           // key= conversation id, value is properties of conversation object(grants, history, etc)
           jsonRes.Key = res.value.key;
           try {
-            jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+            jsonRes.Record = JSON.parse(res.value.value.toString("utf8"));
           } catch (err) {
             console.log(err);
-            jsonRes.Record = res.value.value.toString('utf8');
+            jsonRes.Record = res.value.value.toString("utf8");
           }
         }
         // push json response into array allResults
         allResults.push(jsonRes);
       }
       if (res.done) {
-        console.log('end of data');
+        console.log("end of data");
         // close iterator
         await iterator.close();
         console.info("INFOO", allResults);

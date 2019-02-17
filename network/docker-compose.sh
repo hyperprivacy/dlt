@@ -57,18 +57,18 @@ sleep 5
 node operational-join-channel-enduser.js
 
 
-# sleep 5
+sleep 5
 
-# node operational-install-chaincode-sensor.js
+node operational-install-chaincode-sensor.js
 
 
 sleep 5
 
 node operational-install-chaincode-events.js
 
-# sleep 5
+sleep 5
 
-# node operational-instantiate-chaincode-sensors.js
+node operational-instantiate-chaincode-sensors.js
 
 
 sleep 5

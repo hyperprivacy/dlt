@@ -1,5 +1,5 @@
 {
-  "name": "events-private",
+  "name": "events",
   "version": "1.0.0",
   "description": "chaincode for sensors hyperledger fabric",
   "engines": {
