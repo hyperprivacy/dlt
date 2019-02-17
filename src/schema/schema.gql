@@ -1,0 +1,75 @@
+scalar DateTime
+
+scalar Binary
+
+type Mutation {
+	login(input: LoginInput): String
+	registerSensor(input: RegisterSensorInput!): Device
+	revokeSensor(input: RegisterSensorInput!): Boolean!
+	publishEvent(input: PublishEventInput!): Event!
+}
+
+type Query {
+	viewer: User
+	events(start: DateTime, end: DateTime): [Event!]
+	devices: [Device!]!
+	organization: Organization
+}
+
+type Subscription {
+	events: [Event!]
+}
+
+type User {
+	id: String!
+	username: String!
+	email: String
+	firstname: String!
+	lastname: String!
+}
+
+type Organization {
+	id: String!
+	name: String!
+}
+
+type Device {
+	id: String!
+	mac: String!
+	type: String!
+	name: String!
+	description: String!
+}
+
+type Event {
+	id: String!
+	name: String!
+	type: String!
+	device: Device!
+	creation: DateTime!
+	data: EventData
+}
+
+type EventData {
+	data: String!
+}
+
+input LoginInput {
+	username: String!
+	password: String!
+}
+
+input RegisterSensorInput {
+	mac: String!
+	type: String!
+	name: String!
+	description: String
+}
+
+input RevokeSensorInput {
+	mac: String!
+}
+
+input PublishEventInput {
+	data: Binary
+}
