@@ -27,7 +27,7 @@ const publishEvent = (parent, args, context, info) => {
 				const sensor = sensors[0];
 
 				notificator.sendAlert(
-					`---- CRITICAL EVENT ----\n\nSensor ${sensor.Record.name} send a critical event:\n\n${YAML.stringify(
+					`#sos#\n---- CRITICAL EVENT ----\n\nSensor ${sensor.Record.name} send a critical event:\n\n${YAML.stringify(
 						data,
 						null,
 						2

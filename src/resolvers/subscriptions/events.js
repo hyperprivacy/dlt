@@ -1,7 +1,7 @@
-const { pubsub } = require('../../../main');
+const { pubsub } = require('../../../static');
 
 const events = () => {
-	pubsub.asyncIterator([ '[EVENT]', '[CRITICAL-EVENT]' ]);
+	return pubsub.asyncIterator([ '[EVENT]', '[CRITICAL-EVENT]' ]);
 };
 
 module.exports = { events };
